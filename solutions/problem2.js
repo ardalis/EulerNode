@@ -15,7 +15,6 @@ function* getFibonacci() {
 // https://dev.to/nestedsoftware/lazy-evaluation-in-javascript-with-generators-map-filter-and-reduce--36h5
 
 exports.solve = function () {
-    // TODO: Implement solution
     let fib = getFibonacci();
     let numbers = [];
     while (true) {
