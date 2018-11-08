@@ -1,4 +1,6 @@
-var sumMultiples = function(max) {
+'use strict';
+
+var sumMultiples = function (max) {
     var sum = 0;
     for (i = 1; i < max; i++) {
         if (i % 3 == 0 || i % 5 == 0) {
@@ -8,6 +10,6 @@ var sumMultiples = function(max) {
     return sum;
 }
 
-exports.solve = function() {
+exports.solve = function () {
     return sumMultiples(1000);
 }
