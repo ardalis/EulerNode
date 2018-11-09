@@ -18,26 +18,61 @@ Let us list the factors of the first seven triangle numbers:
 We can see that 28 is the first triangle number to have over five divisors.
 
 What is the value of the first triangle number to have over five hundred divisors?
-
+1,n
+2,n/2
+4,n/4
+8,n/8
+2^250, n/2^250
 */
 
 function* getTriangleNumbers(start = 1) {
-    let previous = 0;
+    let sum = 0;
+    let current = start;
     while (true) {
-        yield start + previous;
-        previous = start;
-        start++
+        sum += current;
+        yield sum;
+        current++;
     }
 }
 
+function getDivisor(input) {
+    let divisors = [1]; // 1 and itself
+    for (let i = 2; i <= input / 2; i++) {
+        if (input % i == 0) {
+            divisors.push(i);
+        }
+    }
+    divisors.push(input); // 1 and itself
+    return divisors;
+}
+
+function getDivisorCount(input) {
+    let count = 0;
+    for (let i = 1; i <= Math.sqrt(input); i++) {
+        if (input % i == 0) {
+            count += 2; // divisors come in pairs
+        }
+        // short circuit if not divisible by 2? 2 and 3?
+        //if (i == 6 && count < 3) return 0;
+    }
+    return count;
+}
 
 exports.solve = function () {
-    var triangles = getTriangleNumbers(1);
-    let sum = 0;
-    let lastValue = 1;
-    while (lastValue < 10) {
-        lastValue = triangles.next().value;
-        sum += lastValue;
+    var triangles = getTriangleNumbers();
+    let divisorCount = 0;
+    let triangleNumber = 1;
+    // // jump to a number that could conceivably have 500 divisors
+    // while (triangleNumber < Math.pow(2, 20)) {
+    //     triangleNumber = triangles.next().value;
+    //     console.log(triangleNumber);
+    // }
+    while (divisorCount < 500) {
+        triangleNumber = triangles.next().value;
+        divisorCount = getDivisorCount(triangleNumber);
+        if (divisorCount > 100) {
+            console.log("Num: " + triangleNumber + " Divisors: " + divisorCount);
+        }
     }
-    return sum;
+    return triangleNumber;
 }
