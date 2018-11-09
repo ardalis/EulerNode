@@ -83,13 +83,14 @@ let maxRowSequence = function (input, sliceSize) {
 
 let maxColSequence = function (input, sliceSize) {
     let maxProduct = 0;
-    for (let i = 0; i < input.length - sliceSize; i++) { // rows 0 to 15 of 20
+    for (let i = 0; i < input.length - (sliceSize - 1); i++) { // rows 0 to 15 of 20
         let row = input[i];
         for (let j = 0; j < row.length; j++) { // each column
             let colArray = [];
             for (let k = 0; k < sliceSize; k++) {
-                colArray.push(row[k]);
+                colArray.push(input[i + k][j]);
             }
+            //console.log('col: ' + colArray);
             let product = getProduct(colArray);
             if (product > maxProduct) {
                 maxProduct = product;
@@ -102,14 +103,14 @@ let maxColSequence = function (input, sliceSize) {
 
 let maxDiagSequence = function (input, sliceSize) {
     let maxProduct = 0;
-    for (let i = 0; i < input.length - sliceSize; i++) { // rows 0 to 15 of 20
+    for (let i = 0; i < input.length - (sliceSize - 1); i++) { // rows 0 to 15 of 20
         let row = input[i];
-        for (let j = 0; j < row.length - sliceSize; j++) { // each column 0 to 15
+        for (let j = 0; j < row.length - (sliceSize - 1); j++) { // each column 0 to 15
             let diagArray = [];
             for (let k = 0; k < sliceSize; k++) {
                 diagArray.push(input[i + k][j + k]);
             }
-            //console.log('diag: ' + diagArray + '\n');
+            //console.log('diag: ' + diagArray);
             let product = getProduct(diagArray);
             if (product > maxProduct) {
                 maxProduct = product;
@@ -118,7 +119,26 @@ let maxDiagSequence = function (input, sliceSize) {
     }
     console.log('Max product in diagonal: ' + maxProduct);
     return maxProduct;
+}
 
+let maxReverseDiagSequence = function (input, sliceSize) {
+    let maxProduct = 0;
+    for (let i = 0 + sliceSize - 1; i < input.length; i++) { // rows 4 to 15 of 20
+        let row = input[i];
+        for (let j = 0; j < row.length - (sliceSize - 1); j++) { // count up from row
+            let diagArray = [];
+            for (let k = 0; k < sliceSize; k++) {
+                diagArray.push(input[i - k][j + k]);
+            }
+            //console.log('rdiag: ' + diagArray);
+            let product = getProduct(diagArray);
+            if (product > maxProduct) {
+                maxProduct = product;
+            }
+        }
+    }
+    console.log('Max product in reverse diagonal: ' + maxProduct);
+    return maxProduct;
 }
 
 exports.solve = function () {
@@ -126,5 +146,6 @@ exports.solve = function () {
     let sliceSize = 4;
     return Math.max(maxRowSequence(matrix, sliceSize),
         maxColSequence(matrix, sliceSize),
-        maxDiagSequence(matrix, sliceSize));
+        maxDiagSequence(matrix, sliceSize),
+        maxReverseDiagSequence(matrix, sliceSize));
 }
