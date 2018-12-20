@@ -18,6 +18,35 @@ NOTE: Once the chain starts the terms are allowed to go above one milli
 
 */
 
+function collatzCount(input) {
+    let count = 1; // start with the number itself and 1 for our sequence
+    let result = input;
+    while (result > 1) {
+        if (result % 2 == 0) {
+            result = result / 2;
+        } else {
+            result = (result * 3) + 1;
+        }
+        count++;
+    }
+
+    return count;
+}
+
+function findlongestChain(max) {
+    let bestCandidate = 1;
+    let maxChainLength = 1;
+
+    for (let i = 1; i < max; i++) {
+        let chainLength = collatzCount(i);
+        if (chainLength > maxChainLength) {
+            bestCandidate = i;
+            maxChainLength = chainLength;
+        }
+    }
+    return bestCandidate;
+}
+
 exports.solve = function () {
-    return 0;
+    return findlongestChain(1000000);
 }
