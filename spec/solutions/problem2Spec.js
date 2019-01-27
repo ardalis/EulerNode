@@ -1,5 +1,5 @@
-describe("problem1", function() {
-    let problemNumber = "problem1"; // TODO: CHANGE THIS LINE AND PREVIOUS LINE
+describe("problem2", function() {
+    let problemNumber = "problem2"; // TODO: CHANGE THIS LINE AND PREVIOUS LINE
     var Solution = require('../../solutions/' + problemNumber);
     var solution;
 
@@ -10,6 +10,6 @@ describe("problem1", function() {
     it("should return correct answer from solve", function() {
         let result = solution.solve();
 
-        expect(result).toEqual(233168);
+        expect(result).toEqual(4613732);
     });
 });
