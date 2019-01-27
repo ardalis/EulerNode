@@ -1,14 +1,28 @@
 'use strict';
 
-/*
+function Solution() {
+    function factorial(num) {
+        if (num === 0) { return 1; } else { return num * factorial(num - 1); }
+    }
 
-Starting in the top left corner of a 2×2 grid, and only being able to move to the right and down, there are exactly 6 routes to the bottom right corner.
+    Solution.prototype.solveForN = function(dimension) {
+        return (factorial(2 * dimension) / (factorial(dimension) * factorial(dimension)));
 
+        // need dimension rights and downs in any combination
+        // if dimension =1 options are DR or RD
+        // if d=2, options are RRDD,RDRD, DDRR, DRDR, RDDR, DRDR
+        // if d=3, RRRDDD...DDDRRR
 
-How many such routes are there through a 20×20 grid?
+        // possible alg is  (2n)!/(n!*n!)
+        // 2/(2*2) -> 2
+        // 4!/2*2 => 3! => 6
+        // 6! / 36 => 20
+    };
 
-*/
-
-exports.solve = function () {
-    return 0;
+    // called by index.js for this problem
+    Solution.prototype.solve = function() {
+        return this.solveForN(20);
+    };
 }
+
+module.exports = Solution;
