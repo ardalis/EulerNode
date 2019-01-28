@@ -12,17 +12,19 @@ All numbers are floating point; max of 53 bits.
 */
 function Solution() {
     function powerof2(num) {
-        var initialValue = "1";
+        var initialValue = Math.pow(2, 50).toString();
+        var result = initialValue;
         for (var i = 1; i <= num; i++) {
-            initialValue = strint.mul(initialValue, "2");
+            result = strint.mul(result, initialValue);
+            console.log(i, i * 50, result);
         }
-        return initialValue;
+        return result;
     }
 
     Solution.prototype.solveForN = function(exponent) {
         var bigNumberString = powerof2(exponent);
         var sumOfDigits = 0;
-        for (var i = 0; i < bigNumberString; i++) {
+        for (var i = 0; i < bigNumberString.length; i++) {
             sumOfDigits = sumOfDigits + parseInt(bigNumberString[i]);
         }
         return sumOfDigits;
@@ -30,7 +32,7 @@ function Solution() {
 
     // called by index.js for this problem
     Solution.prototype.solve = function() {
-        return this.solveForN(56);
+        return this.solveForN(20);
     };
 }
 
