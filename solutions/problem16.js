@@ -18,7 +18,7 @@ function Solution() {
             bigNumbers.push(twoTo50);
             num -= 50;
         }
-        console.log(bigNumbers.length + ' big numbers to multiply.');
+        //console.log(bigNumbers.length + ' big numbers to multiply.');
         if (num > 0) {
             bigNumbers.push(Math.pow(2, num).toString());
         }

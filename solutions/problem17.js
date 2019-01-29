@@ -11,6 +11,37 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
 
 */
 
-exports.solve = function () {
-    return 0;
+function Solution() {
+    Solution.prototype.numbersToWordString = function(max) {
+        let numbers = [];
+        for (var i = 1; i <= max; i++) {
+            numbers.push(this.numberToWordString(i));
+        }
+        let result = numbers.join(' ');
+        return result;
+    }
+
+    Solution.prototype.numberToWordString = function(n) {
+        if (n == 1) return 'one';
+        return 'two';
+    }
+
+    Solution.prototype.letterCount = function(input) {
+        input = input.replace(' ', '');
+        input = input.replace('-', '');
+        return input.length;
+    }
+
+    Solution.prototype.solveForN = function(max) {
+        let wordNumberString = this.numbersToWordString(max);
+        let letterCount = this.letterCount(wordNumberString);
+        return letterCount;
+    };
+
+    // called by index.js for this problem
+    Solution.prototype.solve = function() {
+        return this.solveForN(1000);
+    };
 }
+
+module.exports = Solution;
