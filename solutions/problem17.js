@@ -23,7 +23,9 @@ function Solution() {
 
     Solution.prototype.numberToWordString = function(n) {
         if (n == 1) return 'one';
-        return 'two';
+        if (n == 2) return 'two';
+        if (n == 3) return 'three';
+        return 'four';
     }
 
     Solution.prototype.letterCount = function(input) {

@@ -24,7 +24,9 @@ describe("problem17", function() {
         // Parameterized with https://stackoverflow.com/a/44159698/13729
         [
             [1, 'one'],
-            [2, 'two']
+            [2, 'two'],
+            [3, 'three'],
+            [4, 'four'],
         ].forEach(([input, expectedOutput]) => {
             it("returns ${expectedOutput} for ${input}", () => {
                 expect(expectedOutput).toEqual(solution.numberToWordString(input));
