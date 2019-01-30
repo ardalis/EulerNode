@@ -12,6 +12,10 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
 */
 
 function Solution() {
+    let d = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    let teens = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+    let dd = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+    let bigunits = ['hundred', 'thousand'];
     Solution.prototype.numbersToWordString = function(max) {
         let numbers = [];
         for (var i = 1; i <= max; i++) {
@@ -22,15 +26,47 @@ function Solution() {
     }
 
     Solution.prototype.numberToWordString = function(n) {
-        if (n == 1) return 'one';
-        if (n == 2) return 'two';
-        if (n == 3) return 'three';
-        return 'four';
+        let words = [];
+        let numberString = n.toString().split('');
+        if (numberString.length == 0) return '';
+        var ones = numberString.pop();
+        if (numberString.length == 0) return d[ones];
+        let tens = numberString.pop();
+        if (ones == 0) {
+            words.push(dd[tens]);
+        } else {
+            if (tens != '1') {
+                if (tens == 0) {
+                    words.push(d[ones]);
+                } else {
+                    words.push(dd[tens] + '-' + d[ones]);
+                }
+            } else {
+                words.push(teens[ones]);
+            }
+        }
+        let hundreds = numberString.pop();
+        if (hundreds) {
+            if (hundreds > 0) {
+                let hundredString = d[hundreds] + ' ' + bigunits[0];
+                if (words.join('').length > 0) hundredString += ' and';
+                words.unshift(hundredString);
+            } else {
+                let thousands = numberString.pop();
+                if (thousands && thousands > 0) {
+                    let thousandString = d[thousands] + ' ' + bigunits[1];
+                    words.unshift(thousandString);
+                }
+            }
+        }
+
+        return words.join(' ').trim();
     }
 
     Solution.prototype.letterCount = function(input) {
-        input = input.replace(' ', '');
-        input = input.replace('-', '');
+        input = input.split(' ').join('');
+        input = input.split('-').join('');
+        //console.log(input);
         return input.length;
     }
 
