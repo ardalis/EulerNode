@@ -2,7 +2,8 @@
 
 A node.js implementation of Project Euler problems.
 
-My progress: ![ardalis Euler Progress](https://projecteuler.net/profile/ardalis.png)
+My progress: 
+![ardalis Euler Progress](https://projecteuler.net/profile/ardalis.png)
 
 # Usage
 
