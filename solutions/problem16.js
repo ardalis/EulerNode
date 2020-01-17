@@ -1,5 +1,7 @@
 'use strict';
 let strint = require('../lib/strint');
+let sumStringDigits = require('../lib/sumStringDigits');
+
 /*
 
 215 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
@@ -27,18 +29,10 @@ function Solution() {
         return result;
     }
 
-    Solution.prototype.sumStringDigits = function(input) {
-        var sumOfDigits = 0;
-        for (var i = 0; i < input.length; i++) {
-            sumOfDigits = sumOfDigits + parseInt(input[i]);
-        }
-        return sumOfDigits
-    }
-
     Solution.prototype.solveForN = function(exponent) {
         var bigNumberString = this.powerOf2(exponent);
         console.log(bigNumberString);
-        return this.sumStringDigits(bigNumberString);
+        return sumStringDigits(bigNumberString);
     };
 
     // called by index.js for this problem
