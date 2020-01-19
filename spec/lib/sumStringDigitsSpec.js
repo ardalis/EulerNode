@@ -1,4 +1,4 @@
-describe("problem16", function() {
+describe("sumStringDigits", function() {
     var sumDigits = require('../../lib/sumStringDigits');
 
     it("should return int 1 from sumStringDigits('1')", function() {
