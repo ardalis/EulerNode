@@ -1,4 +1,6 @@
 'use strict';
+let properDivisors = require('../lib/properDivisors');
+
 /*
 
 Amicable Numbers
@@ -14,19 +16,32 @@ Evaluate the sum of all the amicable numbers under 10000.
 */
 
 function Solution() {
-    Solution.prototype.getFactorialString = function(limit) {
-        var result = "1";
-
-        for(var i=1;i<=limit;i++) {
-            result = strint.mul(result, i.toString());
-        }
-        return result;
-    };
 
     // called by index.js for this problem
     Solution.prototype.solve = function() {
-        let factorialResultString = this.getFactorialString(100);
-        return sumStringDigits(factorialResultString);
+        let amicableNumbers = [];
+        let properDivisorSums = {};
+
+        for(let i=2;i<10000;i++) {
+            let divisors = properDivisors(i);
+            let divisorSum = divisors.reduce((a, b) => a + b, 0);
+            let key = "";
+            if(i < divisorSum)
+                key += i.toString() + ':' + divisorSum.toString();
+            else 
+                key += divisorSum.toString() + ':' + i.toString();
+
+            if(properDivisorSums[key] == undefined) {
+                properDivisorSums[key] = i;
+            } else { // found a pair
+                console.log(key);
+
+                amicableNumbers.push(i);
+                amicableNumbers.push(divisorSum);
+            }
+        }
+        console.log(amicableNumbers);
+        return amicableNumbers.reduce((a,b) => a + b, 0);
     };
 }
 

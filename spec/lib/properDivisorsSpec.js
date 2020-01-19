@@ -31,4 +31,9 @@ describe("properDivisors", function() {
 
         expect(result).toEqual([1,2,4]);
     });
+    it("should return [1,2,4,5,10,11,20,22,44,55,110] from properDivisors(220)", function() {
+        let result = properDivisors(220);
+
+        expect(result).toEqual([1,2,4,5,10,11,20,22,44,55,110]);
+    });
 });
