@@ -17,6 +17,14 @@ describe("problem23", function() {
 
             expect(result).toEqual(true);
         });
-
     });
+
+    describe("getAbundantNumbers", function() {
+        it("returns 12 as first value", function() {
+            let result = solution.getAbundantNumbers().next().value;
+
+            expect(result).toEqual(12);
+        });
+    });
+
 });

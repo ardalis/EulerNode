@@ -1,5 +1,6 @@
 'use strict';
 let properDivisors = require('../lib/properDivisors');
+let getIntegers = require('../lib/getIntegers');
 
 /*
 
@@ -22,8 +23,6 @@ two abundant numbers.
 
 */
 
-
-
 function Solution() {
 
     Solution.prototype.getAbundantNumbers = function* getAbundantNumbers(start = 2) {
@@ -31,7 +30,7 @@ function Solution() {
         while (true) {
             var nextNum = numberSequence.next().value;
     
-            if (isAbundantNumber(nextNum)) {
+            if (this.isAbundantNumber(nextNum)) {
                 yield nextNum;
             }
         }
