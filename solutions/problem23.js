@@ -22,7 +22,26 @@ two abundant numbers.
 
 */
 
+
+
 function Solution() {
+
+    Solution.prototype.getAbundantNumbers = function* getAbundantNumbers(start = 2) {
+        var numberSequence = getIntegers(start);
+        while (true) {
+            var nextNum = numberSequence.next().value;
+    
+            if (isAbundantNumber(nextNum)) {
+                yield nextNum;
+            }
+        }
+    }
+    
+    Solution.prototype.isAbundantNumber = function(input) {
+        let divisors = properDivisors(input);
+        let divisorSum = divisors.reduce((a,b) => a+b,0);
+        return divisorSum > input;
+    }
 
     // called by index.js for this problem
     Solution.prototype.solve = function() {
