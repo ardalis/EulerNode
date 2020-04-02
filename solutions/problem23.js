@@ -25,28 +25,96 @@ two abundant numbers.
 
 function Solution() {
 
+    Solution.prototype.abundentNumbers = [];
+    Solution.prototype.nonSums = [];
+
     Solution.prototype.getAbundantNumbers = function* getAbundantNumbers(start = 2) {
         var numberSequence = getIntegers(start);
         while (true) {
             var nextNum = numberSequence.next().value;
-    
+
             if (this.isAbundantNumber(nextNum)) {
                 yield nextNum;
             }
         }
     }
-    
-    Solution.prototype.isAbundantNumber = function(input) {
+
+    Solution.prototype.getNonAbundantSums = function () {
+        var numberSequence = getIntegers(1);
+        for (var i = 0; i < 28123; i++) { this.nonSums.push(true); } // load array with all true values
+        // while (true) {
+        //     var nextNum = numberSequence.next().value;
+
+        //     if (this.isNonAbundantSum(nextNum)) {
+        //         this.nonSums.push(nextNum);
+        //     }
+        // }
+    }
+
+    Solution.prototype.isAbundantNumber = function (input) {
         let divisors = properDivisors(input);
-        let divisorSum = divisors.reduce((a,b) => a+b,0);
+        let divisorSum = divisors.reduce((a, b) => a + b, 0);
         return divisorSum > input;
     }
 
-    // called by index.js for this problem
-    Solution.prototype.solve = function() {
+    Solution.prototype.markNonAbundantSums = function (input) {
+        if (this.abundentNumbers.length < 100) {
+            this.loadNumbers();
+        }
+        for (var input = 0; input < this.nonSums.length; input++) {
+            let isSum = false;
+            for (var i = 0; i < this.abundentNumbers.length; i++) {
+                let op1 = this.abundentNumbers[i];
+                if (op1 > input) { continue; }
+                for (var j = i; j < this.abundentNumbers.length; j++) {
+                    let op2 = this.abundentNumbers[j];
+                    if (op2 > input) { continue; }
+                    if (input == op1 + op2) { isSum = true; }
+                }
+            }
+            this.nonSums[input] = isSum;
+        }
+    }
 
-        
-        return 0;
+    Solution.prototype.isNonAbundantSum = function (input) {
+        if (this.abundentNumbers.length < 100) {
+            this.loadNumbers();
+        }
+        for (var i = 0; i < this.abundentNumbers.length; i++) {
+            if (this.abundentNumbers[i] > input) { break; }
+            for (var j = i; j < this.abundentNumbers.length; j++) {
+                let sum = this.abundentNumbers[i] + this.abundentNumbers[j];
+                if (input == sum) { return false; }
+                if (sum > input) { break; }
+            }
+        }
+        return true;
+    }
+
+    Solution.prototype.loadNumbers = function (max = 28123) {
+        let nextNumber = 0;
+        let generator = this.getAbundantNumbers();
+        while (nextNumber < max) {
+            nextNumber = generator.next().value;
+            this.abundentNumbers.push(nextNumber);
+        }
+    }
+
+    // called by index.js for this problem
+    Solution.prototype.solve = function () {
+        this.getNonAbundantSums();
+        this.markNonAbundantSums();
+        console.log("Abundant Numbers : " + this.abundentNumbers.length);
+        console.log("Non-Abundant Sums: " + this.nonSums.length);
+
+        let sum = 0;
+        for (var i = 0; i < this.nonSums.length; i++) {
+            if (!this.nonSums[i]) {
+                sum += i;
+            }
+        }
+
+        return sum;
     };
 }
 
