@@ -22,6 +22,7 @@ Find the sum of all the positive integers which cannot be written as the sum of
 two abundant numbers.
 
 */
+const maxAbundantSum = 28123;
 
 function Solution() {
 
@@ -41,7 +42,7 @@ function Solution() {
 
     Solution.prototype.getNonAbundantSums = function () {
         var numberSequence = getIntegers(1);
-        for (var i = 0; i < 28123; i++) { this.nonSums.push(true); } // load array with all true values
+        for (var i = 0; i < maxAbundantSum; i++) { this.nonSums.push(true); } // load array with all true values
         // while (true) {
         //     var nextNum = numberSequence.next().value;
 
@@ -61,18 +62,8 @@ function Solution() {
         if (this.abundentNumbers.length < 100) {
             this.loadNumbers();
         }
-        for (var input = 0; input < this.nonSums.length; input++) {
-            let isSum = false;
-            for (var i = 0; i < this.abundentNumbers.length; i++) {
-                let op1 = this.abundentNumbers[i];
-                if (op1 > input) { continue; }
-                for (var j = i; j < this.abundentNumbers.length; j++) {
-                    let op2 = this.abundentNumbers[j];
-                    if (op2 > input) { continue; }
-                    if (input == op1 + op2) { isSum = true; }
-                }
-            }
-            this.nonSums[input] = isSum;
+        for (let i = 0; i < this.nonSums.length; i++) {
+            this.nonSums[i] = this.isNonAbundantSum(i);
         }
     }
 
@@ -91,7 +82,7 @@ function Solution() {
         return true;
     }
 
-    Solution.prototype.loadNumbers = function (max = 28123) {
+    Solution.prototype.loadNumbers = function (max = maxAbundantSum) {
         let nextNumber = 0;
         let generator = this.getAbundantNumbers();
         while (nextNumber < max) {
@@ -109,7 +100,7 @@ function Solution() {
 
         let sum = 0;
         for (var i = 0; i < this.nonSums.length; i++) {
-            if (!this.nonSums[i]) {
+            if (this.nonSums[i]) {
                 sum += i;
             }
         }
