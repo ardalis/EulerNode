@@ -1,4 +1,5 @@
 'use strict';
+let getFibonacci = require('../lib/getFibonacci');
 
 /*
 
@@ -27,16 +28,19 @@ What is the index of the first term in the Fibonacci sequence to contain 1000 di
 
 function Solution() {
 
-    Solution.prototype.getPermutations = function getAbundantNumbers(start = 2) {
-            // todo: generate permutations in alphabetical order
-        }
-    }
-
     // called by index.js for this problem
     Solution.prototype.solve = function() {
-
+        let index = 2;
+        let fib = getFibonacci();
+        while (true) {
+            let nextItem = fib.next().value;
+            if((nextItem + "").length == 1000) break;
+            console.log(index + ": " + nextItem);
+            index++;
+            if(index > 20) break;
+        }
         
-        return 0;
+        return index;
     };
 }
 
