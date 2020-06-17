@@ -1,5 +1,5 @@
 'use strict';
-let getFibonacci = require('../lib/getFibonacci');
+let getFibString = require('../lib/getFibString');
 
 /*
 
@@ -30,14 +30,15 @@ function Solution() {
 
     // called by index.js for this problem
     Solution.prototype.solve = function() {
-        let index = 2;
-        let fib = getFibonacci();
+        let index = 2; // getFibString swallows the first index
+        let fib = getFibString();
         while (true) {
             let nextItem = fib.next().value;
-            if((nextItem + "").length == 1000) break;
-            console.log(index + ": " + nextItem);
+            let len = nextItem.length;
+            if(len == 1000) break;
+            console.log(index + "(" + len + "): " + nextItem);
             index++;
-            if(index > 20) break;
+            if(index > 20000) break;
         }
         
         return index;
