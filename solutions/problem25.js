@@ -38,7 +38,7 @@ function Solution() {
             if(len == 1000) break;
             console.log(index + "(" + len + "): " + nextItem);
             index++;
-            if(index > 20000) break;
+            if(index > 2000) break;
         }
         
         return index;
